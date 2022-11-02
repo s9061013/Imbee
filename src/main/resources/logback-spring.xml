@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+    <contextName>logback</contextName>
+
+    <property name="log.path" value="logs" />
+
+    <!-- use Spring default values -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!--輸出到控制檯-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+             <level>ERROR</level>
+         </filter>-->
+        <encoder>
+            <!--            <pattern>%date %highlight(%-5level) [%thread] %cyan(%logger{60}) [%file : %line] - %msg %n</pattern>-->
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <!--輸出到檔案-->
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/chainssMGMT.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/logback.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory><!--  保留30天日誌 -->
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+            <level>WARN</level>
+            <level>ERROR</level>
+        </filter>
+        <encoder>
+            <pattern>%date [%level] [%thread] %logger{60} [%file : %line] - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="console" />
+        <appender-ref ref="file" />
+    </root>
+
+    <!--    &lt;!&ndash; logback為java中的包 &ndash;&gt;-->
+    <!--    <logger name="com.dudu.controller"/>-->
+    <!--    &lt;!&ndash;logback.LogbackDemo：類的全路徑 &ndash;&gt;-->
+    <!--    <logger name="com.dudu.controller.LearnController" level="WARN" additivity="false">-->
+    <!--        <appender-ref ref="console"/>-->
+    <!--    </logger>-->
+</configuration>

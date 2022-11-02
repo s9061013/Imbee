@@ -1,0 +1,73 @@
+server:
+  servlet:
+    context-path: /imbee
+  port: 8081
+  http2:
+    enabled: true
+  max-http-header-size: 10000000
+# ===============================
+# SpringBoot2 基礎設置
+# ===============================
+spring:
+  servlet:
+    multipart:
+      maxFileSize: 100MB
+      maxRequestSize: 100MB
+  # 允許 entity 被修改時自動覆蓋
+  main:
+    allow-bean-definition-overriding: true
+  # 一般 datasource setting
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/imbee?serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=utf-8
+    username: user
+    password: user
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 10
+      maximum-pool-size: 25
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: ExpendHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+      naming-strategy: org.hibernate.cfg.DefaultNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDBDialect
+        temp:
+          use_jdbc_metadata_defaults: false
+  flyway:
+    enabled: true               # 啟用 Flyway Migration
+    baseline-version: 1.0       # 基準版本
+    baseline-on-migrate: true   # 基準版本是否在 migrate 時執行
+    validate-on-migrate: true   # 執行 migrate 時會去驗證資料庫的版本與實際的 Migration 版本是否相同
+    out-of-order: false         # 是否允許執行順序不同的 Migration
+    target: latest              # 目標版本
+    locations: classpath:db/migration # Migration 檔案存放的資料夾
+    # 以下是資料庫的連線設定
+    url: jdbc:mysql://127.0.0.1:3306/imbee
+    user: user
+    password: user
+  output:
+    ansi:
+      enabled: always
+  ### gson ###
+  http:
+    encoding:
+      force: true
+    converters:
+      preferred-json-mapper: gson
+  gson:
+    date-format: yyyy-MM-dd
+# ===============================
+# 日誌 基礎設置
+# ===============================
+logging:
+  config: classpath:logback-spring.xml
