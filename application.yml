@@ -56,20 +56,10 @@ spring:
     user: user
     password: user
   rabbitmq:
-    host: staging-rabbitmq-mgmt.adata.tw
+    host: 127.0.0.1
     port: 5672
-    username: adatabackup
-    password: adatabackup
-    virtual-host: /adatabackup
-    listener:
-      simple:
-        acknowledge-mode: manual
-        prefetch: 1
-        retry:
-          enabled: true
-          max-attempts: 2
-          initial-interval: 5000
-    auction-queue: auction
+    username: guest
+    password: guest
   output:
     ansi:
       enabled: always
@@ -86,3 +76,5 @@ spring:
 # ===============================
 logging:
   config: classpath:logback-spring.xml
+#app:
+#  firebase-config: aaaa-56483-firebase-adminsdk-lrd76-7a71ca1fe7.json
