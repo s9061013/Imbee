@@ -12,8 +12,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @DynamicInsert
 @Entity
-@Table(name = "device", schema = "public", catalog = "imbee")
-public class DeviceEntity {
+@Table(name = "fcm_job", schema = "public", catalog = "imbee")
+public class FcmJobEntity {
     @Id
     @Column(name = "identifier", nullable = false)
     private String identifier;
