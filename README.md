@@ -21,7 +21,7 @@ docker build -t {IMAGE_NAME} .
 
 #### docker run
 ```
-docker run -p 8081:8081 {DOCKER_NAME}
+docker run -p 8081:8081 {IMAGE_NAME}
 ```
 
 ### other info 
