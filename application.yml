@@ -18,9 +18,9 @@ spring:
     allow-bean-definition-overriding: true
   # 一般 datasource setting
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/imbee?serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=utf-8
-    username: user
-    password: user
+    url: ${MYSQL.url}?serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=utf-8
+    username: ${MYSQL.username}
+    password: ${MYSQL.password}
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
@@ -52,29 +52,31 @@ spring:
     target: latest              # 目標版本
     locations: classpath:db/migration # Migration 檔案存放的資料夾
     # 以下是資料庫的連線設定
-    url: jdbc:mysql://127.0.0.1:3306/imbee
-    user: user
-    password: user
+    url: ${MYSQL.url}
+    user: ${MYSQL.username}
+    password: ${MYSQL.password}
   rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: guest
-    password: guest
-  output:
-    ansi:
-      enabled: always
-  ### gson ###
-  http:
-    encoding:
-      force: true
-    converters:
-      preferred-json-mapper: gson
-  gson:
-    date-format: yyyy-MM-dd
+    host: ${RabbitMQ.host}
+    port: ${RabbitMQ.port}
+    username: ${RabbitMQ.username}
+    password: ${RabbitMQ.password}
 # ===============================
 # 日誌 基礎設置
 # ===============================
 logging:
   config: classpath:logback-spring.xml
-#app:
-#  firebase-config: aaaa-56483-firebase-adminsdk-lrd76-7a71ca1fe7.json
+app:
+  firebase-config: firebase-service-account.json
+# ===============================
+# env variable
+# ===============================
+MYSQL:
+  url: jdbc:mysql://192.168.1.24:3306/imbee
+  username: user
+  password: user
+RabbitMQ:
+  host: 192.168.1.24
+  port: 5672
+  username: guest
+  password: guest
+FirebaseName: aaaa-56483
